@@ -1,13 +1,14 @@
 package edu.temple.inclassactivity
 
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         // Fetch images into IntArray called imageArray
         val typedArray = resources.obtainTypedArray(R.array.image_ids)
         val imageArray = IntArray(typedArray.length()) {typedArray.getResourceId(it, 0)}
@@ -15,5 +16,16 @@ class MainActivity : AppCompatActivity() {
 
         // Attach an instance of ImageDisplayFragment using factory method
 
+        val fragment = ImageDisplayFragment.newInstance(imageArray)
+
+//        val bundle = Bundle()
+//        bundle.putIntArray(IMAGES_KEY, imageArray)
+//
+//        fragment.arguments = bundle
+
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragmentContainer, fragment)
+            .commit()
     }
 }
